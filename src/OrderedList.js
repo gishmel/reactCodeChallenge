@@ -9,13 +9,12 @@ function OrderedList() {
   const onSubmit = e => {
     e.preventDefault()
     if (e.charCode === 13) {
-      const updatedArray = [...list, e.target.value]
+      let updatedArray = [...list, e.target.value]
       if (order) {
-        if (order === -1) {
-          updatedArray.sort().reverse()
-        } else {
-          updatedArray.sort()
-        }
+        updatedArray.sort()
+      } 
+      if (order === -1) {
+        updatedArray = updatedArray.reverse()
       }
       setList(updatedArray)
       setItem("")
@@ -28,13 +27,12 @@ function OrderedList() {
 
   const handleKeyPress = e => {
     if (e.charCode === 13) {
-      const updatedArray = [...list, e.target.value]
+      let updatedArray = [...list, e.target.value]
       if (order) {
-        if (order === -1) {
-          updatedArray.sort().reverse()
-        } else {
-          updatedArray.sort()
-        }
+        updatedArray.sort()
+      } 
+      if (order === -1) {
+        updatedArray = updatedArray.reverse()
       }
       setList(updatedArray)
       setItem("")
@@ -43,16 +41,16 @@ function OrderedList() {
 
   const sort = () => {
     if (order === 0) {
-      setOrder(1)
       list.sort()
+      setOrder(1)
       setList(list)
     } else if (order === 1) {
+      list.sort().reverse()
       setOrder(-1)
-      list.sort()
       setList(list)
     } else if (order === -1) {
+      list.sort()
       setOrder(1)
-      list.sort().reverse()
       setList(list)
     }
   }
@@ -79,8 +77,8 @@ function OrderedList() {
         <button onClick={sort} type="button" >{order === 0 
                                                 ? <FaAngleRight /> 
                                                 :  order === 1 
-                                                  ? <FaAngleDown /> 
-                                                  : <FaAngleUp />
+                                                  ? <FaAngleUp /> 
+                                                  : <FaAngleDown />
         }</button>
         <button onClick={reset} type="button" ><FaUndo /></button>
       </form>
