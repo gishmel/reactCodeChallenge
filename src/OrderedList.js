@@ -77,8 +77,8 @@ function OrderedList() {
         <button onClick={sort} type="button" >{order === 0 
                                                 ? <FaAngleRight /> 
                                                 :  order === 1 
-                                                  ? <FaAngleUp /> 
-                                                  : <FaAngleDown />
+                                                  ? <FaAngleDown /> 
+                                                  : <FaAngleUp />
         }</button>
         <button onClick={reset} type="button" ><FaUndo /></button>
       </form>
