@@ -1,15 +1,22 @@
 import React, { useState } from 'react'
-import { FaUndo, FaAngleUp, FaAngleDown } from 'react-icons/fa'
+import { FaUndo, FaAngleUp, FaAngleDown, FaAngleRight } from 'react-icons/fa'
 
 function OrderedList() {
   const [item, setItem] = useState("")
   const [list, setList] = useState([])
-  const [order, setOrder] = useState(1)
+  const [order, setOrder] = useState(0)
 
   const onSubmit = e => {
     e.preventDefault()
     if (e.charCode === 13) {
       const updatedArray = [...list, e.target.value]
+      if (order) {
+        if (order === -1) {
+          updatedArray.sort().reverse()
+        } else {
+          updatedArray.sort()
+        }
+      }
       setList(updatedArray)
       setItem("")
     }
@@ -22,23 +29,38 @@ function OrderedList() {
   const handleKeyPress = e => {
     if (e.charCode === 13) {
       const updatedArray = [...list, e.target.value]
+      if (order) {
+        if (order === -1) {
+          updatedArray.sort().reverse()
+        } else {
+          updatedArray.sort()
+        }
+      }
       setList(updatedArray)
       setItem("")
     }
   }
 
   const sort = () => {
-    list.sort()
-    if (order === -1) {
-      list.reverse()
+    if (order === 0) {
+      setOrder(1)
+      list.sort()
+      setList(list)
+    } else if (order === 1) {
+      setOrder(-1)
+      list.sort()
+      setList(list)
+    } else if (order === -1) {
+      setOrder(1)
+      list.sort().reverse()
+      setList(list)
     }
-    setOrder(-order)
-    setList(list)
   }
 
   const reset = () => {
     setItem("")
     setList([])
+    setOrder(0)
   }
 
   return (
@@ -54,7 +76,12 @@ function OrderedList() {
             onKeyPress={handleKeyPress}
           />
         </label>
-        <button onClick={sort} type="button" >{order === 1 ? <FaAngleDown /> : <FaAngleUp />}</button>
+        <button onClick={sort} type="button" >{order === 0 
+                                                ? <FaAngleRight /> 
+                                                :  order === 1 
+                                                  ? <FaAngleDown /> 
+                                                  : <FaAngleUp />
+        }</button>
         <button onClick={reset} type="button" ><FaUndo /></button>
       </form>
       <ul>
